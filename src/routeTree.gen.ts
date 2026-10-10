@@ -10,33 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EnergyRouteImport } from './routes/energy'
+import { Route as EquipmentRouteImport } from './routes/equipment'
+import { Route as ProductionRouteImport } from './routes/production'
+import { Route as SafetyRouteImport } from './routes/safety'
+import { Route as WellsRouteImport } from './routes/wells'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnergyRoute = EnergyRouteImport.update({
+  id: '/energy',
+  path: '/energy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipmentRoute = EquipmentRouteImport.update({
+  id: '/equipment',
+  path: '/equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductionRoute = ProductionRouteImport.update({
+  id: '/production',
+  path: '/production',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WellsRoute = WellsRouteImport.update({
+  id: '/wells',
+  path: '/wells',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/energy': typeof EnergyRoute
+  '/equipment': typeof EquipmentRoute
+  '/production': typeof ProductionRoute
+  '/safety': typeof SafetyRoute
+  '/wells': typeof WellsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/energy': typeof EnergyRoute
+  '/equipment': typeof EquipmentRoute
+  '/production': typeof ProductionRoute
+  '/safety': typeof SafetyRoute
+  '/wells': typeof WellsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/energy': typeof EnergyRoute
+  '/equipment': typeof EquipmentRoute
+  '/production': typeof ProductionRoute
+  '/safety': typeof SafetyRoute
+  '/wells': typeof WellsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/energy' | '/equipment' | '/production' | '/safety' | '/wells'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/energy' | '/equipment' | '/production' | '/safety' | '/wells'
+  id:
+    | '__root__'
+    | '/'
+    | '/energy'
+    | '/equipment'
+    | '/production'
+    | '/safety'
+    | '/wells'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EnergyRoute: typeof EnergyRoute
+  EquipmentRoute: typeof EquipmentRoute
+  ProductionRoute: typeof ProductionRoute
+  SafetyRoute: typeof SafetyRoute
+  WellsRoute: typeof WellsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +106,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/energy': {
+      id: '/energy'
+      path: '/energy'
+      fullPath: '/energy'
+      preLoaderRoute: typeof EnergyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipment': {
+      id: '/equipment'
+      path: '/equipment'
+      fullPath: '/equipment'
+      preLoaderRoute: typeof EquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/production': {
+      id: '/production'
+      path: '/production'
+      fullPath: '/production'
+      preLoaderRoute: typeof ProductionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wells': {
+      id: '/wells'
+      path: '/wells'
+      fullPath: '/wells'
+      preLoaderRoute: typeof WellsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EnergyRoute: EnergyRoute,
+  EquipmentRoute: EquipmentRoute,
+  ProductionRoute: ProductionRoute,
+  SafetyRoute: SafetyRoute,
+  WellsRoute: WellsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
