@@ -119,6 +119,23 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  // Recover from stale page chunks (after updates) by reloading once.
+  useEffect(() => {
+    const onPreloadError = (e: Event) => {
+      const key = "oilfield-chunk-reload";
+      if (sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key, "1");
+      e.preventDefault();
+      window.location.reload();
+    };
+    const clear = window.setTimeout(() => sessionStorage.removeItem("oilfield-chunk-reload"), 10000);
+    window.addEventListener("vite:preloadError", onPreloadError);
+    return () => {
+      window.removeEventListener("vite:preloadError", onPreloadError);
+      window.clearTimeout(clear);
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
